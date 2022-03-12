@@ -27,6 +27,7 @@ public class TextController {
 
 //    @GetMapping
 //    public ResponseEntity<?> getText( @RequestBody Text text) {
+
         //TODO get by hash
 //        return new ResponseEntity<>(textService.createText(text.getText()
 //                ,text.getChars()), HttpStatus.CREATED);
