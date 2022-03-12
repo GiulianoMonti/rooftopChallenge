@@ -2,7 +2,7 @@
 rooftop academy chalenge,
 <div></div>
 
-api that divides a String in syllables, and count every occurrence,
+<h3>api that divides a String in syllables, and count every occurrence</h3>
 
 <div></div>
 
