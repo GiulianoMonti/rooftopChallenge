@@ -1,11 +1,11 @@
 package com.giulian.challenge.controller;
 
 import com.giulian.challenge.model.Text;
+import com.giulian.challenge.payload.TextResponses;
+import com.giulian.challenge.repository.TextRepository;
 import com.giulian.challenge.service.ITextService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,30 +13,37 @@ import org.springframework.web.bind.annotation.*;
 public class TextController {
 
     private final ITextService textService;
+    private final TextRepository textRepository;
 
-    public TextController(ITextService textService) {
+    public TextController(ITextService textService, TextRepository textRepository) {
         this.textService = textService;
+        this.textRepository = textRepository;
     }
 
-    @PostMapping
-    public ResponseEntity<?> addText( @RequestBody Text text) {
+    @PostMapping("/text")
+    public ResponseEntity<TextResponses> addText(@RequestBody Text text) {
 
-        return new ResponseEntity<>(textService.createText(text.getText()
-                ,text.getChars()), HttpStatus.CREATED);
+        Text texts = textService.createText(text.getText()
+                , text.getChars());
+
+
+        return new ResponseEntity<>(new TextResponses(texts.getId(),
+                "/text/"+texts.getId()), HttpStatus.OK);
     }
 
-//    @GetMapping
-//    public ResponseEntity<?> getText( @RequestBody Text text) {
+    @GetMapping("text/{id}")
+    public ResponseEntity<?> getTextById(@PathVariable long id) {
 
-        //TODO get by hash
-//        return new ResponseEntity<>(textService.createText(text.getText()
-//                ,text.getChars()), HttpStatus.CREATED);
-//    }
+        // TODO get by hash
 
-
-
-
-
-
-
+        return new ResponseEntity<>(textService.getTextById(id), HttpStatus.OK);
+    }
 }
+
+
+
+
+
+
+
+

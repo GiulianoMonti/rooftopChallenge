@@ -35,7 +35,7 @@ public class SyllablesCounter {
                 map.put(str.toString(), 1);
             }
 
-            // refreshemos el StringBuilder, stackoverflow
+            // refreshemos el StringBuilder
             str.setLength(0);
 
             System.out.println();
@@ -43,7 +43,7 @@ public class SyllablesCounter {
             if (p3 == text.length() || p2 == text.length() - 1) {
                 break;
             }
-            // los pointer afuera del for
+            // los pointers afuera del for
             p3++;
             p2++;
             p1++;
@@ -51,20 +51,6 @@ public class SyllablesCounter {
 
         return map;
 
-    }
-    public String getHash(byte[] inputBytes,String algorithm){
-        String hashValue = "";
-        try{
-            MessageDigest messageDigest= MessageDigest.getInstance(algorithm);
-            messageDigest.update(inputBytes);
-            byte[] digestedBytes = messageDigest.digest();
-            hashValue = DatatypeConverter.printHexBinary(digestedBytes).toLowerCase();
-
-        }
-        catch(Exception e){
-
-        }
-        return hashValue;
     }
 
 }
