@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
@@ -12,9 +13,9 @@ public class SyllablesCounter {
 
 
 
-    public Map<String,Integer> countSyllables(String text, Integer chars) {
+    public LinkedHashMap<String,Integer> countSyllables(String text, Integer chars) {
         StringBuilder str = new StringBuilder();
-        Map<String, Integer> map = new HashMap<>();
+        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
 // 3 pointers,
         int str_size = text.length();
         int p1 = 0;

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Entity
@@ -20,8 +21,8 @@ public class Text {
     private String hash;
     private String text;
     private int chars;
-    @ElementCollection
-    private Map<String,Integer> mappedText;
+    @Lob
+    private LinkedHashMap<String,Integer> mappedText ;
 
 
 }
