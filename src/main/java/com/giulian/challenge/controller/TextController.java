@@ -1,5 +1,6 @@
 package com.giulian.challenge.controller;
 
+import com.giulian.challenge.exception.ResourceNotFoundException;
 import com.giulian.challenge.model.Text;
 import com.giulian.challenge.payload.TextResponses;
 import com.giulian.challenge.repository.TextRepository;
@@ -42,7 +43,12 @@ public class TextController {
 
         // TODO get by hash
 
-        return new ResponseEntity<>(textService.getTextById(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(textService.getTextById(id), HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
     }
 }
 

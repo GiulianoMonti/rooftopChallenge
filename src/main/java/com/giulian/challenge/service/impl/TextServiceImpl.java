@@ -1,5 +1,6 @@
 package com.giulian.challenge.service.impl;
 
+import com.giulian.challenge.exception.ResourceNotFoundException;
 import com.giulian.challenge.model.Text;
 import com.giulian.challenge.payload.TextResponseDTO;
 import com.giulian.challenge.repository.TextRepository;
@@ -8,12 +9,12 @@ import com.giulian.challenge.utils.HashData;
 import com.giulian.challenge.utils.SyllablesCounter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ExpressionException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -23,36 +24,36 @@ public class TextServiceImpl implements ITextService {
     TextRepository textRepository;
 
     @Autowired
+    MessageSource messageSource;
+
+    @Autowired
     SyllablesCounter syllablesCounter;
+
     @Autowired
     HashData hashData;
+
+    @Value("error.category.id.not.found")
+    private String idNotFoundMessage;
 
     public Text createText(String text, Integer chars) {
 
         Text newText = new Text();
         try {
-            newText = textRepository.findByHash(hashData.getHash(text.getBytes(),chars.byteValue()
+            newText = textRepository.findByHash(hashData.getHash(text.getBytes(), chars.byteValue()
                     , "MD5")).orElseThrow(() -> new Exception("REPETIDO"));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String checkHash ="";
         try {
 
 
-
             newText.setText(text);
-//            log.info(" cdalkfjao "+ textRepository.findByHash(newText.getHash()));
+//            log.info(" HASH HASH HASH HASH HASH "+ textRepository.findByHash(newText.getHash()));
 
-            newText.setHash(hashData.getHash(text.getBytes(),chars.byteValue()
+            newText.setHash(hashData.getHash(text.getBytes(), chars.byteValue()
                     , "MD5"));
-
-//            if(textRepository.findByHash(newText.getHash()).equals(hashData.getHash(text.getBytes(),chars.byteValue()
-//                    , "MD5"))){
-//                System.out.println("HOLAAAAAA");
-//            }
 
             newText.setChars(chars);
             newText.setMappedText(syllablesCounter.countSyllables(text, chars));
@@ -75,9 +76,10 @@ public class TextServiceImpl implements ITextService {
 
     @Override
     public TextResponseDTO getTextById(Long textId) {
+
         Text text = textRepository.findById(textId)
                 .orElseThrow(() ->
-                        new ExpressionException("not"));
+                        new ResourceNotFoundException(textId));
 
         return TextResponseDTO.buildResponse(text);
 

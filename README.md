@@ -3,6 +3,22 @@ rooftop academy chalenge,
 
 <div></div>
 
-API que divide frase en silabas y hashea el text + parametro, getmapping deberia buscar x hash no x id,
+Clonar y deberia funcionar pass:password
 
-h2 deberia funcar directo
+<div></div>
+
+http://localhost:8080/api/v1/text
+
+json
+{
+"text":"solo se que nada sabemos",
+"chars":3
+}
+<div></div>
+
+
+
+
+
+
+
