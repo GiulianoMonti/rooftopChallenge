@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class TextServiceImpl implements ITextService {
@@ -27,12 +31,31 @@ public class TextServiceImpl implements ITextService {
 
         Text newText = new Text();
         try {
+            newText = textRepository.findByHash(hashData.getHash(text.getBytes(),chars.byteValue()
+                    , "MD5")).orElseThrow(() -> new Exception("REPETIDO"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String checkHash ="";
+        try {
+
+
 
             newText.setText(text);
-            newText.setHash(hashData.getHash(text.getBytes()
-                    ,"MD5"));
+//            log.info(" cdalkfjao "+ textRepository.findByHash(newText.getHash()));
+
+            newText.setHash(hashData.getHash(text.getBytes(),chars.byteValue()
+                    , "MD5"));
+
+//            if(textRepository.findByHash(newText.getHash()).equals(hashData.getHash(text.getBytes(),chars.byteValue()
+//                    , "MD5"))){
+//                System.out.println("HOLAAAAAA");
+//            }
+
             newText.setChars(chars);
-            newText.setMappedText(syllablesCounter.countSyllables(text,chars));
+            newText.setMappedText(syllablesCounter.countSyllables(text, chars));
             textRepository.save(newText);
 
         } catch (Exception e) {
@@ -43,6 +66,14 @@ public class TextServiceImpl implements ITextService {
 
 
     @Override
+    public List<Text> getTextByChars(int chars) {
+
+        List<Text> texts = textRepository.findByChars(chars);
+        return new ArrayList<>(texts);
+
+    }
+
+    @Override
     public TextResponseDTO getTextById(Long textId) {
         Text text = textRepository.findById(textId)
                 .orElseThrow(() ->
@@ -51,7 +82,6 @@ public class TextServiceImpl implements ITextService {
         return TextResponseDTO.buildResponse(text);
 
     }
-
 
 
 }

@@ -31,6 +31,12 @@ public class TextController {
                 "/text/"+texts.getId()), HttpStatus.OK);
     }
 
+//    @GetMapping("text/{chars}")
+//    public ResponseEntity<?> getTextByChars(@PathVariable int chars) {
+//        // TODO get by hash
+//        return new ResponseEntity<>(textService.getTextByChars(chars), HttpStatus.OK);
+//    }
+
     @GetMapping("text/{id}")
     public ResponseEntity<?> getTextById(@PathVariable long id) {
 
