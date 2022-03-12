@@ -19,7 +19,7 @@ json
 "text":"solo se que no se nada",
 <div></div>
 
-"chars":3
+"chars":2
 
 }
 <div></div>
