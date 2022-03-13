@@ -7,7 +7,14 @@ rooftop academy chalenge,
 <div></div>
 
 Clonar y deberia funcionar pass:password
+<div></div>
+para ver la db
+<div></div>
 
+http://localhost:8080/h2-console/
+<div></div>
+user:sa  
+pass:password
 <div></div>
 
 POST Y GET
