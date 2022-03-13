@@ -12,4 +12,5 @@ public interface ITextService {
     TextResponseDTO getTextById(Long textId);
     List<Text> findAllTexts();
 
+    void deleteText(Long id);
 }

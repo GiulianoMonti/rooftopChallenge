@@ -95,5 +95,12 @@ public class TextServiceImpl implements ITextService {
 
     }
 
+    @Override
+    public void deleteText(Long id) {
+        textRepository.delete(textRepository.findById(id).orElseThrow( () ->
+                new ResourceNotFoundException(1)));
+
+    }
+
 
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/text")
@@ -60,6 +61,13 @@ public class TextController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteTextById(@PathVariable Long id) {
+        textService.deleteText(id);
+        return new ResponseEntity<>
+                ("", HttpStatus.OK);
     }
 }
 
