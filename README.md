@@ -6,7 +6,7 @@ rooftop academy chalenge,
 
 <div></div>
 
-Clonar y deberia funcionar pass:password
+Clonar y deberia funcionar
 <div></div>
 para ver la db
 <div></div>
