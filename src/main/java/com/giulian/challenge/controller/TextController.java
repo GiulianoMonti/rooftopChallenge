@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class TextController {
@@ -29,8 +31,17 @@ public class TextController {
 
 
         return new ResponseEntity<>(new TextResponses(texts.getId(),
-                "/text/"+texts.getId()), HttpStatus.OK);
+                "/text/" + texts.getId()), HttpStatus.OK);
     }
+
+    @GetMapping
+    public List<Text> getAllTexts() {
+
+        return textService.findAllTexts();
+
+
+    }
+
 
 //    @GetMapping("text/{chars}")
 //    public ResponseEntity<?> getTextByChars(@PathVariable int chars) {
@@ -46,7 +57,7 @@ public class TextController {
         try {
             return new ResponseEntity<>(textService.getTextById(id), HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }

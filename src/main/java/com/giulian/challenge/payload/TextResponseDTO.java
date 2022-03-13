@@ -26,6 +26,9 @@ public class TextResponseDTO {
     @ElementCollection
     private Map<String, Integer> result;
 
+    public TextResponseDTO(Text text) {
+    }
+
     public static TextResponseDTO buildResponse(Text text) {
 
         return TextResponseDTO.builder()

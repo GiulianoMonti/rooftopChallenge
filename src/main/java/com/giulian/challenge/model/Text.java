@@ -25,4 +25,6 @@ public class Text {
     private LinkedHashMap<String,Integer> mappedText ;
 
 
+    public Text(Text text) {
+    }
 }

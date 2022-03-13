@@ -65,6 +65,12 @@ public class TextServiceImpl implements ITextService {
         return newText;
     }
 
+    @Override
+    public List<Text> findAllTexts() {
+        List<Text>text = textRepository.findAll();
+        return text;
+    }
+
 
     @Override
     public List<Text> getTextByChars(int chars) {
