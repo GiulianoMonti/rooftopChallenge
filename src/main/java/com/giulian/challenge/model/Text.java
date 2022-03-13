@@ -24,7 +24,4 @@ public class Text {
     @Lob
     private LinkedHashMap<String,Integer> mappedText ;
 
-
-    public Text(Text text) {
-    }
 }

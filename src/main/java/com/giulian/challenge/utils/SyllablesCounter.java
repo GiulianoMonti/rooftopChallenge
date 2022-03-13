@@ -2,11 +2,7 @@ package com.giulian.challenge.utils;
 
 import org.springframework.stereotype.Controller;
 
-import javax.xml.bind.DatatypeConverter;
-import java.security.MessageDigest;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Controller
 public class SyllablesCounter {

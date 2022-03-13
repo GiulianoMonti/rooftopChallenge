@@ -9,8 +9,8 @@ public class ResourceNotFoundException extends RuntimeException {
 
     private long fieldValue;
 
-    // viendo como devolver 3 datos en la excepcion
-    // TODO tambien puedo usar el messagesource
+    // viendo como devolver 3 datos en la exception
+    // TODO tambien puedo usar el messageSource
 
     public ResourceNotFoundException( long fieldValue) {
         super(String.format("text not found with id '%s", fieldValue));

@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ITextService {
 
-    public Text createText(String text, Integer chars) ;
+    Text createText(String text, Integer chars) ;
     List<Text> getTextByChars(int chars);
-    public TextResponseDTO getTextById(Long textId);
-    public List<Text> findAllTexts();
+    TextResponseDTO getTextById(Long textId);
+    List<Text> findAllTexts();
 
 }

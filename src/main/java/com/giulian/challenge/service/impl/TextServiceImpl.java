@@ -32,10 +32,15 @@ public class TextServiceImpl implements ITextService {
     @Autowired
     HashData hashData;
 
+    // TODO error messages en error.properties (?)
     @Value("error.category.id.not.found")
     private String idNotFoundMessage;
 
     public Text createText(String text, Integer chars) {
+
+        if(text.length()<=chars){
+            chars=1;
+        }
 
         Text newText = new Text();
         try {
@@ -67,8 +72,7 @@ public class TextServiceImpl implements ITextService {
 
     @Override
     public List<Text> findAllTexts() {
-        List<Text>text = textRepository.findAll();
-        return text;
+        return textRepository.findAll();
     }
 
 
