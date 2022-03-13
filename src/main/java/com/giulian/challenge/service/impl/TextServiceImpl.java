@@ -38,8 +38,8 @@ public class TextServiceImpl implements ITextService {
 
     public Text createText(String text, Integer chars) {
 
-        if(text.length()<=chars){
-            chars=1;
+        if (text.length() <= chars || chars < 2) {
+            chars = 2;
         }
 
         Text newText = new Text();
