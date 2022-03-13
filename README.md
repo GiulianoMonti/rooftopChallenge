@@ -19,6 +19,11 @@ pass:password
 
 POST Y GET
 http://localhost:8080/text
+<div></div>
+http://localhost:8080/text/{id}
+<div></div>
+http://localhost:8080/text/all (paginacion)
+
 
 json
 {
