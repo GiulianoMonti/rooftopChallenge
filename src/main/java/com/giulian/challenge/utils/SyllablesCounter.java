@@ -1,10 +1,11 @@
 package com.giulian.challenge.utils;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.util.LinkedHashMap;
 
-@Controller
+@Component
 public class SyllablesCounter {
 
 

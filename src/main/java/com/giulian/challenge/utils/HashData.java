@@ -1,12 +1,13 @@
 package com.giulian.challenge.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 
-@Controller
+@Component
 @Slf4j
 public class HashData {
 
