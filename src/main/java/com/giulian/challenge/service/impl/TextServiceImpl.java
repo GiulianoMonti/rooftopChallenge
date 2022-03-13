@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,17 +79,17 @@ public class TextServiceImpl implements ITextService {
     @Override
     public List<TextResponseDTO> findAllTexts() {
         return textRepository.findAll().stream().map
-                (text -> mapToDto(text)).collect(Collectors.toList());
+                (this::mapToDto).collect(Collectors.toList());
     }
 
 
-    @Override
-    public List<Text> getTextByChars(int chars) {
-
-        List<Text> texts = textRepository.findByChars(chars);
-        return new ArrayList<>(texts);
-
-    }
+//    @Override
+//    public List<Text> getTextByChars(int chars) {
+//
+//        List<Text> texts = textRepository.findByChars(chars);
+//        return new ArrayList<>(texts);
+//
+//    }
 
     @Override
     public TextResponseDTO getTextById(Long textId) {
@@ -110,9 +109,9 @@ public class TextServiceImpl implements ITextService {
 
     }
 
-    public Page<Text> getPageableText(Pageable pageable) {
-
-        return textRepository.findAll(pageable);
+    public Page<TextResponseDTO> getPageableText(Pageable pageable) {
+        return textRepository.findAll(pageable).map(d -> mapper.map
+                (d, TextResponseDTO.class));
     }
 
 

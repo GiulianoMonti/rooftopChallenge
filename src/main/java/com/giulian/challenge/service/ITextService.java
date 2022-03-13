@@ -10,11 +10,9 @@ import java.util.List;
 public interface ITextService {
 
     Text createText(String text, Integer chars) ;
-    List<Text> getTextByChars(int chars);
+//    List<Text> getTextByChars(int chars);
     TextResponseDTO getTextById(Long textId);
     List<TextResponseDTO> findAllTexts();
-
     void deleteText(Long id);
-
-    Page<Text> getPageableText(Pageable pageable);
+    Page<TextResponseDTO> getPageableText(Pageable pageable);
 }

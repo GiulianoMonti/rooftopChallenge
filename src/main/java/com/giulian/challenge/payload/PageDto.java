@@ -13,7 +13,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PageDto<T>{
-    private List<Text> content;
+    private List<TextResponseDTO> content;
     private Map<String,String> links = new HashMap<>();
 }
 

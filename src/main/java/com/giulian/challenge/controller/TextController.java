@@ -88,7 +88,7 @@ public class TextController {
                                                     int page, HttpServletRequest request) {
         try {
 
-            Page<Text> result = textService.getPageableText(pageable);
+            Page<TextResponseDTO> result = textService.getPageableText(pageable);
             Map<String, String> links = utilPagination.linksPagination(request, result);
             if (page >= result.getTotalPages() | page < 0)
                 return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.ACCEPTED);
