@@ -2,14 +2,23 @@ package com.giulian.challenge.controller;
 
 import com.giulian.challenge.exception.ResourceNotFoundException;
 import com.giulian.challenge.model.Text;
+import com.giulian.challenge.payload.PageDto;
+import com.giulian.challenge.payload.TextResponseDTO;
 import com.giulian.challenge.payload.TextResponses;
 import com.giulian.challenge.repository.TextRepository;
 import com.giulian.challenge.service.ITextService;
+import com.giulian.challenge.utils.UtilPagination;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -18,10 +27,12 @@ public class TextController {
 
     private final ITextService textService;
     private final TextRepository textRepository;
+    private UtilPagination utilPagination;
 
-    public TextController(ITextService textService, TextRepository textRepository) {
+    public TextController(ITextService textService, TextRepository textRepository, UtilPagination utilPagination) {
         this.textService = textService;
         this.textRepository = textRepository;
+        this.utilPagination = utilPagination;
     }
 
     @PostMapping
@@ -36,7 +47,7 @@ public class TextController {
     }
 
     @GetMapping
-    public List<Text> getAllTexts() {
+    public List<TextResponseDTO> getAllTexts() {
 
         return textService.findAllTexts();
 
@@ -69,6 +80,29 @@ public class TextController {
         return new ResponseEntity<>
                 ("", HttpStatus.OK);
     }
+
+    @GetMapping("all")
+    ResponseEntity<?> getCategoriesPageable(@PageableDefault(sort = "id",
+            direction = Sort.Direction.ASC, size = 2) Pageable pageable,
+                                            @RequestParam(value = "page", defaultValue = "0")
+                                                    int page, HttpServletRequest request) {
+        try {
+
+            Page<Text> result = textService.getPageableText(pageable);
+            Map<String, String> links = utilPagination.linksPagination(request, result);
+            if (page >= result.getTotalPages() | page < 0)
+                return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.ACCEPTED);
+
+            PageDto<TextResponseDTO> response = new PageDto<>();
+            response.setContent(result.getContent());
+            response.setLinks(links);
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
 }
 
 

@@ -6,10 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Data
@@ -23,8 +21,8 @@ public class TextResponseDTO {
     private long id;
     private String hash;
     private int chars;
-    @ElementCollection
-    private Map<String, Integer> result;
+    @Lob
+    private LinkedHashMap<String, Integer> result;
 
     public TextResponseDTO(Text text) {
     }
@@ -35,7 +33,7 @@ public class TextResponseDTO {
                 .id(text.getId())
                 .hash(text.getHash())
                 .chars(text.getChars())
-                .result(text.getMappedText())
+                .result(text.getResult())
                 .build();
 
     }

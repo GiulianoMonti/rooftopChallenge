@@ -8,13 +8,17 @@ import com.giulian.challenge.service.ITextService;
 import com.giulian.challenge.utils.HashData;
 import com.giulian.challenge.utils.SyllablesCounter;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -31,6 +35,9 @@ public class TextServiceImpl implements ITextService {
 
     @Autowired
     HashData hashData;
+
+    @Autowired
+    ModelMapper mapper;
 
     // TODO error messages en error.properties (?)
     @Value("error.category.id.not.found")
@@ -61,7 +68,7 @@ public class TextServiceImpl implements ITextService {
                     , "MD5"));
 
             newText.setChars(chars);
-            newText.setMappedText(syllablesCounter.countSyllables(text, chars));
+            newText.setResult(syllablesCounter.countSyllables(text, chars));
             textRepository.save(newText);
 
         } catch (Exception e) {
@@ -71,8 +78,9 @@ public class TextServiceImpl implements ITextService {
     }
 
     @Override
-    public List<Text> findAllTexts() {
-        return textRepository.findAll();
+    public List<TextResponseDTO> findAllTexts() {
+        return textRepository.findAll().stream().map
+                (text -> mapToDto(text)).collect(Collectors.toList());
     }
 
 
@@ -101,6 +109,25 @@ public class TextServiceImpl implements ITextService {
                 new ResourceNotFoundException(1)));
 
     }
+
+    public Page<Text> getPageableText(Pageable pageable) {
+
+        return textRepository.findAll(pageable);
+    }
+
+
+    private TextResponseDTO mapToDto(Text text) {
+
+        return mapper.map(text,TextResponseDTO.class);
+    }
+
+    // convert DTO to entity
+    private Text mapToEntity(TextResponseDTO textResponseDTO) {
+        Text text = mapper.map(textResponseDTO,Text.class);
+
+        return text;
+    }
+
 
 
 }

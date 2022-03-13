@@ -13,4 +13,5 @@ public interface TextRepository extends JpaRepository<Text, Long> {
     List<Text> findByChars(int chars);
     Optional<Text> findByHash(String hash);
 
+
 }

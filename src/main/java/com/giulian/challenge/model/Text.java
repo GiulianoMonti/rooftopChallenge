@@ -28,6 +28,6 @@ public class Text {
     private Boolean deleted = Boolean.FALSE;
 
     @Lob
-    private LinkedHashMap<String,Integer> mappedText ;
+    private LinkedHashMap<String,Integer> result ;
 
 }
