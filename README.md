@@ -10,7 +10,8 @@ Clonar y deberia funcionar pass:password
 
 <div></div>
 
-http://localhost:8080/api/v1/text
+POST Y GET
+http://localhost:8080/text
 
 json
 {

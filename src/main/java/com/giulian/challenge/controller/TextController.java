@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/text")
 public class TextController {
 
     private final ITextService textService;
@@ -23,7 +23,7 @@ public class TextController {
         this.textRepository = textRepository;
     }
 
-    @PostMapping("/text")
+    @PostMapping
     public ResponseEntity<TextResponses> addText(@RequestBody Text text) {
 
         Text texts = textService.createText(text.getText()
@@ -49,7 +49,7 @@ public class TextController {
 //        return new ResponseEntity<>(textService.getTextByChars(chars), HttpStatus.OK);
 //    }
 
-    @GetMapping("text/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getTextById(@PathVariable long id) {
 
         // TODO get by hash
