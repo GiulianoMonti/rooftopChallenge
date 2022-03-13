@@ -10,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Locale;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/text")
 public class TextController {

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
-import java.util.Arrays;
 
 @Controller
 @Slf4j
